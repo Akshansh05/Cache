@@ -20,11 +20,14 @@ public class CacheManager<K, V> implements ICache<K, V> {
 
     @Override
     public void put(K key, V value) {
-        if (cacheMap.size() >= MAX_CAPACITY) {
+        if (cacheMap.containsKey(key)) {
+            cacheMap.put(key, new Cache<>(key, value));
+            return;
+        } else if (cacheMap.size() >= MAX_CAPACITY) {
             K evictedKey = evectionPolicy.evictKey();
             if (!Objects.isNull(evictedKey))
                 cacheMap.remove(evictedKey);
-        }
+        } //here Tracking is happening at put as well should ask   interviewer
         cacheMap.put(key, new Cache<>(key, value));
     }
 

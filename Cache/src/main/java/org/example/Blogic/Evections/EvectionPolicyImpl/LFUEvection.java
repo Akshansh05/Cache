@@ -7,12 +7,12 @@ import java.util.Map;
 
 public class LFUEvection<K> implements EvectionPolicy<K> {
 
-    private final HashMap<K, Integer> accessMap;
+    private final HashMap<K, Integer> accessMap; // can use LinkedHashMap as well  in order to maintain access order along with frequency if frequency is same
     private final int MAX_CAPACITY;
 
     public LFUEvection(int MAX_CAPACITY) {
         this.MAX_CAPACITY = MAX_CAPACITY;
-        this.accessMap = new HashMap<>(MAX_CAPACITY);
+        this.accessMap = new HashMap<>(MAX_CAPACITY); // new LinkedHashMap<>(MAX_CAPACITY, 0.75F, true);
     }
 
     @Override
